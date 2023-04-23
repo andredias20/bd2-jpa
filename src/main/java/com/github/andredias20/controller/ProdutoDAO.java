@@ -1,6 +1,7 @@
 package com.github.andredias20.controller;
 
 import com.github.andredias20.model.Produto;
+import com.github.andredias20.model.ProdutoNaoEncontradoException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -40,7 +41,7 @@ public class ProdutoDAO {
             entityManger.getTransaction().begin();
             entityManger.persist(produto);
             entityManger.getTransaction().commit();
-        }catch(Exception e){
+        }catch(RuntimeException e){
             e.printStackTrace();
             entityManger.getTransaction().rollback();
         }
@@ -50,7 +51,7 @@ public class ProdutoDAO {
             entityManger.getTransaction().begin();
             entityManger.merge(produto);
             entityManger.getTransaction().commit();
-        }catch(Exception e){
+        }catch(RuntimeException e){
             e.printStackTrace();
             entityManger.getTransaction().rollback();
         }
@@ -60,7 +61,7 @@ public class ProdutoDAO {
             entityManger.getTransaction().begin();
             entityManger.remove(produto);
             entityManger.getTransaction().commit();
-        }catch(Exception e){
+        }catch(RuntimeException e){
             e.printStackTrace();
             entityManger.getTransaction().rollback();
         }
@@ -70,10 +71,11 @@ public class ProdutoDAO {
         try{
             entityManger.getTransaction().begin();
             var prod = entityManger.find(Produto.class, id);
-            //TODO: trows ProductNotFoundedException if(prod == null)
+            System.out.println("Produto encontrado: "+prod);
+            if(prod == null) throw new ProdutoNaoEncontradoException("Não foi possivel encontrar o produto informado");
             entityManger.remove(prod);
             entityManger.getTransaction().commit();
-        }catch(Exception e){
+        }catch(RuntimeException e){
             e.printStackTrace();
             entityManger.getTransaction().rollback();
         }
