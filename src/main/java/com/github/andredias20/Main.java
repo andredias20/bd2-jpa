@@ -7,19 +7,8 @@ import com.github.andredias20.view.MainView;
 public class Main {
     public static void main(String[] args) {
 
+        //Tentando implementar uma ConsoleView (não deu certo/não valeu a pena continuar)
         MainView.start();
-
-        Produto p1 = new Produto();
-        p1.setNome("Notebook");
-        p1.setDescricao("Notebook Dell Inspiron");
-        p1.setPreco(3000.00);
-        p1.setId(2);
-
-        Produto p2 = new Produto();
-        p2.setId(1);
-        p2.setNome("Notebook");
-        p2.setDescricao("Notebook Acer Nitro");
-        p2.setPreco(3500.00);
 
     }
 }
